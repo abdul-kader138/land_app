@@ -1097,8 +1097,20 @@ class Site extends CI_Model
     }
 
     public function getAllDoc()
+{
+    $q = $this->db->get("documents");
+    if ($q->num_rows() > 0) {
+        foreach (($q->result()) as $row) {
+            $data[] = $row;
+        }
+        return $data;
+    }
+    return FALSE;
+}
+
+    public function getAllEmployees()
     {
-        $q = $this->db->get("documents");
+        $q = $this->db->get("employees");
         if ($q->num_rows() > 0) {
             foreach (($q->result()) as $row) {
                 $data[] = $row;
@@ -1108,9 +1120,9 @@ class Site extends CI_Model
         return FALSE;
     }
 
-    public function getAllEmployees()
+    public function getAllDistrict()
     {
-        $q = $this->db->get("employees");
+        $q = $this->db->get("districts");
         if ($q->num_rows() > 0) {
             foreach (($q->result()) as $row) {
                 $data[] = $row;

@@ -129,7 +129,27 @@ class Document extends MY_Controller
         $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
         $this->form_validation->set_rules('status_id', lang("status_id"), 'trim|required');
         $this->form_validation->set_rules('doctype_id', lang("doctype_id"), 'trim|required');
+        $this->form_validation->set_rules('land_quantity', lang("land_quantity"), 'trim|required');
+        $this->form_validation->set_rules('seller_name', lang("seller_name"), 'trim|required');
+        $this->form_validation->set_rules('district_id', lang("district_id"), 'trim|required');
         $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
+        $this->form_validation->set_rules('price', lang("price"), 'trim');
+        $this->form_validation->set_rules('registration_office', lang("registration_office"), 'trim');
+        $this->form_validation->set_rules('registration_expense', lang("registration_expense"), 'trim');
+        $this->form_validation->set_rules('registration_date', lang("registration_date"), 'trim');
+        $this->form_validation->set_rules('deed_no', lang("deed_no"), 'trim');
+        $this->form_validation->set_rules('deed_date', lang("deed_date"), 'trim');
+        $this->form_validation->set_rules('bia_deed_date', lang("bia_deed_date"), 'trim');
+        $this->form_validation->set_rules('bia_deed_no', lang("bia_deed_no"), 'trim');
+        $this->form_validation->set_rules('khotian_no', lang("khotian_no"), 'trim');
+        $this->form_validation->set_rules('dcr_no', lang("dcr_no"), 'trim');
+        $this->form_validation->set_rules('dag_no', lang("dag_no"), 'trim');
+        $this->form_validation->set_rules('case_no', lang("case_no"), 'trim');
+        $this->form_validation->set_rules('case_date', lang("case_date"), 'trim');
+        $this->form_validation->set_rules('jot_no', lang("jot_no"), 'trim');
+        $this->form_validation->set_rules('mujja', lang("mujja"), 'trim');
+        $this->form_validation->set_rules('rack_no', lang("rack_no"), 'trim|required');
+        $this->form_validation->set_rules('location', lang("location"),'trim|required');
 
         if ($this->form_validation->run() == true) {
 
@@ -143,7 +163,29 @@ class Document extends MY_Controller
                 'doctype_id' => $this->input->post('doctype_id'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_date' => date("Y-m-d H:i:s"),
-                'other_info' => $this->input->post('other_info')
+                'other_info' => $this->input->post('other_info'),
+
+
+                'district_id' => $this->input->post('district_id'),
+                'seller_name' => $this->input->post('seller_name'),
+                'land_quantity' => $this->input->post('land_quantity'),
+                'price' => $this->input->post('price'),
+                'registration_office' => $this->input->post('registration_office'),
+                'registration_expense' => $this->input->post('registration_expense'),
+                'registration_date' => $this->input->post('registration_date'),
+                'deed_no' => $this->input->post('deed_no'),
+                'deed_date' => $this->input->post('deed_date'),
+                'bia_deed_date' => $this->input->post('bia_deed_date'),
+                'bia_deed_no' => $this->input->post('bia_deed_no'),
+                'khotian_no' => $this->input->post('khotian_no'),
+                'dcr_no' => $this->input->post('dcr_no'),
+                'dag_no' => $this->input->post('dag_no'),
+                'case_no' => $this->input->post('case_no'),
+                'case_date' => $this->input->post('case_date'),
+                'jot_no' => $this->input->post('jot_no'),
+                'mujja' => $this->input->post('mujja'),
+                'rack_no' => $this->input->post('rack_no'),
+                'location' => $this->input->post('location')
             );
 
             if ($_FILES['document']['size'] > 0) {
@@ -173,6 +215,7 @@ class Document extends MY_Controller
         } else {
             $data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
 
+            $this->data['districts'] = $this->site->getAllDistrict();
             $this->data['companies'] = $this->site->getAllCompany();
             $this->data['doctypes'] = $this->site->getAllDocType();
 
@@ -773,5 +816,44 @@ class Document extends MY_Controller
             )
         );
         $this->load->library('elfinder_lib', $opts);
+    }
+
+
+    function modal_view($id = NULL) {
+        $this->sma->checkPermissions('index', TRUE);
+
+        $pr_details = $this->document_model->getDocumentById($id);
+        if (!$id || !$pr_details) {
+            $this->session->set_flashdata('error', lang('doc_not_found'));
+            $this->sma->md();
+        }
+        $this->data['document'] = $pr_details;
+        $this->data['unit'] = "Decimal";
+        $this->data['company'] = $this->document_model->getCompanyById($pr_details->company_id);
+        $this->data['district'] = $this->document_model->getDistrictById($pr_details->district_id);
+        $this->data['doctype'] = $this->document_model->getDocTypeById($pr_details->doctype_id);
+        $this->load->view($this->theme . 'document/modal_view', $this->data);
+    }
+
+    function pdf($id = NULL, $view = NULL) {
+        $this->sma->checkPermissions('index', TRUE);
+
+        $pr_details = $this->document_model->getDocumentById($id);
+        if (!$id || !$pr_details) {
+            $this->session->set_flashdata('error', lang('doc_not_found'));
+            $this->sma->md();
+        }
+        $this->data['document'] = $pr_details;
+        $this->data['unit'] = "Decimal";
+        $this->data['company'] = $this->document_model->getCompanyById($pr_details->company_id);
+        $this->data['district'] = $this->document_model->getDistrictById($pr_details->district_id);
+        $this->data['doctype'] = $this->document_model->getDocTypeById($pr_details->doctype_id);
+        $name =  $pr_details->name. ".pdf";
+        if ($view) {
+            $this->load->view($this->theme . 'document/pdf', $this->data);
+        } else {
+            $html = $this->load->view($this->theme . 'document/pdf', $this->data, TRUE);
+            $this->sma->generate_pdf($html, $name);
+        }
     }
 }

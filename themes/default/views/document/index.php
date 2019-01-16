@@ -1,3 +1,8 @@
+<style>
+    .document_link{
+        cursor: pointer;
+    }
+</style>
 <script>
     $(document).ready(function () {
         var oTable;
@@ -14,6 +19,12 @@
                     "value": "<?= $this->security->get_csrf_hash() ?>"
                 });
                 $.ajax({'dataType': 'json', 'type': 'POST', 'url': sSource, 'data': aoData, 'success': fnCallback});
+            },'fnRowCallback': function (nRow, aData, iDisplayIndex) {
+                var oSettings = oTable.fnSettings();
+                nRow.id = aData[0];
+                // nRow.id = 27199;
+                nRow.className = "document_link";
+                return nRow;
             },
             "aoColumns": [{
                 "bSortable": false,

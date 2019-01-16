@@ -125,4 +125,31 @@ class Document_model extends CI_Model
         }
         return FALSE;
     }
+
+    public function getCompanyById($id)
+    {
+        $q = $this->db->get_where('company', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function getDistrictById($id)
+    {
+        $q = $this->db->get_where('districts', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function getDocTypeById($id)
+    {
+        $q = $this->db->get_where('doctype', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
 } 

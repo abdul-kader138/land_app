@@ -996,6 +996,7 @@ $(document).ready(function() {
         $('#myModal').modal('show');
         //window.location.href = site.base_url + 'products/view/' + $(this).parent('.product_link').attr('id');
     });
+
     $('body').on('click', '.product_link2 td:first-child, .product_link2 td:nth-child(2)', function() {
         $('#myModal').modal({remote: site.base_url + 'products/modal_view/' + $(this).closest('tr').attr('id')});
         $('#myModal').modal('show');
@@ -1078,6 +1079,12 @@ $(document).ready(function() {
     $('body').on('click', '.adjustment_link2', function() {
         $('#myModal').modal({remote: site.base_url + 'products/view_adjustment/' + $(this).attr('id')});
         $('#myModal').modal('show');
+    });
+    $('body').on('click', '.document_link td:not(:first-child)', function() {
+    // $('body').on('click', '.document_link td:not(:first-child, :nth-child(2), :last-child)', function() {
+        $('#myModal').modal({remote: site.base_url + 'document/modal_view/' + $(this).parent('.document_link').attr('id')});
+        $('#myModal').modal('show');
+        //window.location.href = site.base_url + 'products/view/' + $(this).parent('.product_link').attr('id');
     });
     $('#clearLS').click(function(event) {
         bootbox.confirm(lang.r_u_sure, function(result) {

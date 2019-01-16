@@ -31,6 +31,7 @@ $lang['doc_updated']                      = "Document successfully updated.";
 $lang['doc_deleted']                      = "Document successfully deleted.";
 
 
+$lang['doc_not_found']                    = "Document Not Found";
 $lang['doc_movement_list']                = "List Document Movement";
 $lang['add_movement']                     = "Add Document Movement";
 $lang['edit_movement']                    = "Edit Document Movement";
