@@ -591,4 +591,5 @@ $lang['doc_movement_list']              = "List Document Movement";
 $lang['add_movement']                   = "Add Document Movement";
 $lang['edit_movement']                  = "Edit Document Movement";
 $lang['delete_movement']                = "Delete Document Movement";
+$lang['file_manager']                   = "File Manager";
 

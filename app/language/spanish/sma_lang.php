@@ -422,3 +422,4 @@ $lang['brands_report']                              = "Reporte de Marcas";
 $lang['best_sellers']                               = "Reporte de Venderores";
 $lang['adjustments_report']                         = "Reporte de Ajustes";
 $lang['stock_in_hand']                              = "Inventario en Bodega";
+$lang['file_manager']                               = "Administrador de archivos";

@@ -146,12 +146,6 @@
                 <div class="buttons">
                     <div class="btn-group btn-group-justified">
                         <div class="btn-group">
-                            <a href="<?= site_url('products/print_barcodes/' . $product->id) ?>" class="tip btn btn-primary" title="<?= lang('print_barcode_label') ?>">
-                                <i class="fa fa-print"></i>
-                                <span class="hidden-sm hidden-xs"><?= lang('print_barcode_label') ?></span>
-                            </a>
-                        </div>
-                        <div class="btn-group">
                             <a href="<?= site_url('document/pdf/' . $document->id) ?>" class="tip btn btn-primary" title="<?= lang('pdf') ?>">
                                 <i class="fa fa-download"></i>
                                 <span class="hidden-sm hidden-xs"><?= lang('pdf') ?></span>
