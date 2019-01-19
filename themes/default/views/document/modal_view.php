@@ -67,7 +67,7 @@
                             </tr>
                             <tr>
                                 <td style="width: 30%"><b><?= lang("Document_Type"); ?>:</b></td>
-                                <td style="width: 70%"><?= $doctype->name; ?></td>
+                                <td style="width: 70%"><?= $doctype->description; ?></td>
                             </tr>
                             </tbody>
                         </table>

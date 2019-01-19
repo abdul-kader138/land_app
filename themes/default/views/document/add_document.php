@@ -29,13 +29,13 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("reference_no", "slref"); ?>
-                                <?php echo form_input('reference_no', (isset($_POST['reference_no']) ? $_POST['reference_no'] : $slnumber), 'class="form-control input-tip" required="required" id="reference_no"'); ?>
+                                <?= lang("reference_no", "reference_no"); ?>
+                                <?php echo form_input('reference_no', (isset($_POST['reference_no']) ? $_POST['reference_no'] : ""), 'class="form-control input-tip" required="required" id="reference_no"'); ?>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("company", "company"); ?>
+                                <?= lang("company", "company")." <b> *</b>"; ?>
                                 <?php
                                 $bl[""] = "";
                                 foreach ($companies as $company) {
@@ -48,8 +48,8 @@
                         <div class="clearfix"></div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("document_status", "document_status"); ?>
-                                <?php $sst = array('new' => lang('new'), 'updated' => lang('updated'), 'pending' => lang('pending'));
+                                <?= lang("document_status", "document_status") ." <b> *</b>";  ?>
+                                <?php $sst = array('new' => lang('New'), 'updated' => lang('Updated'), 'pending' => lang('Pending'));
                                 echo form_dropdown('status_id', $sst, '', 'class="form-control input-tip" required="required" id="status_id"'); ?>
 
                             </div>
@@ -58,11 +58,11 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("doc_type", "doc_type"); ?>
+                                <?= lang("doc_type", "doc_type")." <b> *</b>" ; ?>
                                 <?php
                                 $wh[''] = '';
                                 foreach ($doctypes as $doctype) {
-                                    $wh[$doctype->id] = $doctype->name;
+                                    $wh[$doctype->id] = $doctype->description;
                                 }
                                 echo form_dropdown('doctype_id', $wh, (isset($_POST['doctype_id']) ? $_POST['doctype_id'] : ""), 'id="doctype_id" class="form-control input-tip select" data-placeholder="' . $this->lang->line("select") . ' ' . $this->lang->line("doc_type") . '" required="required" style="width:100%;" ');
                                 ?>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("District", "District"); ?>
+                                <?= lang("District", "District")." <b> *</b>"; ?>
                                 <?php
                                 $bl[""] = "";
                                 foreach ($districts as $district) {
@@ -83,7 +83,7 @@
                         <div class="clearfix"></div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Seller_Name", "Seller_Name"); ?>
+                                <?= lang("Seller_Name", "Seller_Name") ." <b> *</b>"; ?>
                                 <?php echo form_input('seller_name', (isset($_POST['seller_name']) ? $_POST['seller_name'] : ""), 'class="form-control input-tip" id="seller_name" required="required"'); ?>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
 
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Land_Quantity_(Decimal)", "Land_Quantity_(Decimal)"); ?>
+                                <?= lang("Land_Quantity_(Decimal)", "Land_Quantity_(Decimal)") ." <b> *</b>"; ?>
                                 <?php echo form_input('land_quantity', (isset($_POST['land_quantity']) ? $_POST['land_quantity'] : ""), 'class="form-control input-tip" id="land_quantity" required="required"'); ?>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
 
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Registration_Office", "Registration_Office"); ?>
+                                <?= lang("Registration_Office", "Registration_Office") ." <b> *</b>"; ?>
                                 <?php echo form_input('registration_office', (isset($_POST['registration_office']) ? $_POST['registration_office'] : ""), 'class="form-control input-tip" id="registration_office" required="required"'); ?>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
 
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Registration_Expense", "Registration_Expense"); ?>
+                                <?= lang("Registration_Expense", "Registration_Expense") ." <b> *</b>"; ?>
                                 <?php echo form_input('registration_expense', (isset($_POST['registration_expense']) ? $_POST['registration_expense'] : ""), 'class="form-control input-tip" id="registration_expense" required="required"'); ?>
                             </div>
                         </div>
@@ -212,14 +212,14 @@
                         <hr class="line">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Rack_No", "Rack_No"); ?>
+                                <?= lang("Rack_No", "Rack_No")." <b> *</b>"; ?>
                                 <?php echo form_input('rack_no', (isset($_POST['rack_no']) ? $_POST['rack_no'] : ""), 'class="form-control input-tip" id="rack_no" required="required"'); ?>
                             </div>
                         </div>
 
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Location", "Location"); ?>
+                                <?= lang("Location", "Location")." <b> *</b>"; ?>
                                 <?php echo form_input('location', (isset($_POST['location']) ? $_POST['location'] : ""), 'class="form-control input-tip" id="location" required="required"'); ?>
                             </div>
                         </div>

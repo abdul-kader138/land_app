@@ -129,23 +129,23 @@ class Document extends MY_Controller
         $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
         $this->form_validation->set_rules('status_id', lang("status_id"), 'trim|required');
         $this->form_validation->set_rules('doctype_id', lang("doctype_id"), 'trim|required');
-        $this->form_validation->set_rules('land_quantity', lang("land_quantity"), 'trim|required');
+        $this->form_validation->set_rules('land_quantity', lang("land_quantity"), 'trim|required|numeric');
         $this->form_validation->set_rules('seller_name', lang("seller_name"), 'trim|required');
         $this->form_validation->set_rules('district_id', lang("district_id"), 'trim|required');
         $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
-        $this->form_validation->set_rules('price', lang("price"), 'trim');
+        $this->form_validation->set_rules('price', lang("price"), 'trim|numeric');
         $this->form_validation->set_rules('registration_office', lang("registration_office"), 'trim');
-        $this->form_validation->set_rules('registration_expense', lang("registration_expense"), 'trim');
-        $this->form_validation->set_rules('registration_date', lang("registration_date"), 'trim');
+        $this->form_validation->set_rules('registration_expense', lang("registration_expense"), 'trim|numeric');
+        $this->form_validation->set_rules('registration_date', lang("registration_date"), 'trim|callback_date_valid');
         $this->form_validation->set_rules('deed_no', lang("deed_no"), 'trim');
-        $this->form_validation->set_rules('deed_date', lang("deed_date"), 'trim');
-        $this->form_validation->set_rules('bia_deed_date', lang("bia_deed_date"), 'trim');
+        $this->form_validation->set_rules('deed_date', lang("deed_date"), 'trim|callback_date_valid');
+        $this->form_validation->set_rules('bia_deed_date', lang("bia_deed_date"), 'trim|callback_date_valid');
         $this->form_validation->set_rules('bia_deed_no', lang("bia_deed_no"), 'trim');
         $this->form_validation->set_rules('khotian_no', lang("khotian_no"), 'trim');
         $this->form_validation->set_rules('dcr_no', lang("dcr_no"), 'trim');
         $this->form_validation->set_rules('dag_no', lang("dag_no"), 'trim');
         $this->form_validation->set_rules('case_no', lang("case_no"), 'trim');
-        $this->form_validation->set_rules('case_date', lang("case_date"), 'trim');
+        $this->form_validation->set_rules('case_date', lang("case_date"), 'trim|callback_date_valid');
         $this->form_validation->set_rules('jot_no', lang("jot_no"), 'trim');
         $this->form_validation->set_rules('mujja', lang("mujja"), 'trim');
         $this->form_validation->set_rules('rack_no', lang("rack_no"), 'trim|required');
@@ -279,23 +279,23 @@ class Document extends MY_Controller
         $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
         $this->form_validation->set_rules('status_id', lang("status_id"), 'trim|required');
         $this->form_validation->set_rules('doctype_id', lang("doctype_id"), 'trim|required');
-        $this->form_validation->set_rules('land_quantity', lang("land_quantity"), 'trim|required');
+        $this->form_validation->set_rules('land_quantity', lang("land_quantity"), 'trim|required|numeric');
         $this->form_validation->set_rules('seller_name', lang("seller_name"), 'trim|required');
         $this->form_validation->set_rules('district_id', lang("district_id"), 'trim|required');
         $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
-        $this->form_validation->set_rules('price', lang("price"), 'trim');
+        $this->form_validation->set_rules('price', lang("price"), 'trim|numeric');
         $this->form_validation->set_rules('registration_office', lang("registration_office"), 'trim');
-        $this->form_validation->set_rules('registration_expense', lang("registration_expense"), 'trim');
-        $this->form_validation->set_rules('registration_date', lang("registration_date"), 'trim');
+        $this->form_validation->set_rules('registration_expense', lang("registration_expense"), 'trim|numeric');
+        $this->form_validation->set_rules('registration_date', lang("registration_date"), 'trim|callback_date_valid');
         $this->form_validation->set_rules('deed_no', lang("deed_no"), 'trim');
-        $this->form_validation->set_rules('deed_date', lang("deed_date"), 'trim');
-        $this->form_validation->set_rules('bia_deed_date', lang("bia_deed_date"), 'trim');
+        $this->form_validation->set_rules('deed_date', lang("deed_date"), 'trim|callback_date_valid');
+        $this->form_validation->set_rules('bia_deed_date', lang("bia_deed_date"), 'trim|callback_date_valid');
         $this->form_validation->set_rules('bia_deed_no', lang("bia_deed_no"), 'trim');
         $this->form_validation->set_rules('khotian_no', lang("khotian_no"), 'trim');
         $this->form_validation->set_rules('dcr_no', lang("dcr_no"), 'trim');
         $this->form_validation->set_rules('dag_no', lang("dag_no"), 'trim');
         $this->form_validation->set_rules('case_no', lang("case_no"), 'trim');
-        $this->form_validation->set_rules('case_date', lang("case_date"), 'trim');
+        $this->form_validation->set_rules('case_date', lang("case_date"), 'trim|callback_date_valid');
         $this->form_validation->set_rules('jot_no', lang("jot_no"), 'trim');
         $this->form_validation->set_rules('mujja', lang("mujja"), 'trim');
         $this->form_validation->set_rules('rack_no', lang("rack_no"), 'trim|required');
@@ -898,5 +898,21 @@ class Document extends MY_Controller
             $html = $this->load->view($this->theme . 'document/pdf', $this->data, TRUE);
             $this->sma->generate_pdf($html, $name);
         }
+    }
+
+    public function date_valid($date)
+    {
+        if($date){
+            $parts = explode("/", $date);
+            if (count($parts) == 3) {
+                if (checkdate($parts[1], $parts[0], $parts[2]))
+                {
+                    return TRUE;
+                }
+            }
+            $this->form_validation->set_message('date_valid', 'The Date field must be dd/mm/yyyy');
+            return false;
+        }
+        return true;
     }
 }

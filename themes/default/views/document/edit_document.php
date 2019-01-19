@@ -29,13 +29,13 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("reference_no", "slref"); ?>
+                                <?= lang("reference_no", "reference_no"); ?>
                                 <?php echo form_input('reference_no', $document->reference_no, 'class="form-control input-tip" required="required" id="reference_no"'); ?>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("company", "company"); ?>
+                                <?= lang("company", "company")." <b> *</b>"; ?>
                                 <?php
                                 $bl[""] = "";
                                 foreach ($companies as $company) {
@@ -48,8 +48,8 @@
                         <div class="clearfix"></div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("document_status", "document_status"); ?>
-                                <?php $sst = array('new' => lang('new'), 'updated' => lang('updated'), 'pending' => lang('pending'));
+                                <?= lang("document_status", "document_status")." <b> *</b>"; ?>
+                                <?php $sst = array('new' => lang('New'), 'updated' => lang('Updated'), 'pending' => lang('Pending'));
                                 echo form_dropdown('status_id', $sst, $document->status_id, 'class="form-control input-tip" required="required" id="status_id"'); ?>
 
                             </div>
@@ -58,7 +58,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("doc_type", "doc_type"); ?>
+                                <?= lang("doc_type", "doc_type")." <b> *</b>"; ?>
                                 <?php
                                 $wh[''] = '';
                                 foreach ($doctypes as $doctype) {
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("District", "District"); ?>
+                                <?= lang("District", "District")." <b> *</b>"; ?>
                                 <?php
                                 $bl[""] = "";
                                 foreach ($districts as $district) {
@@ -84,7 +84,7 @@
                         <div class="clearfix"></div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Seller_Name", "Seller_Name"); ?>
+                                <?= lang("Seller_Name", "Seller_Name")." <b> *</b>"; ?>
                                 <?php echo form_input('seller_name', $document->seller_name, 'class="form-control input-tip" id="seller_name" required="required"'); ?>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
 
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Land_Quantity_(Decimal)", "Land_Quantity_(Decimal)"); ?>
+                                <?= lang("Land_Quantity_(Decimal)", "Land_Quantity_(Decimal)")." <b> *</b>"; ?>
                                 <?php echo form_input('land_quantity', $document->land_quantity, 'class="form-control input-tip" id="land_quantity" required="required"'); ?>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                         <div class="clearfix"></div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Registration_Office", "Registration_Office"); ?>
+                                <?= lang("Registration_Office", "Registration_Office")." <b> *</b>"; ?>
                                 <?php echo form_input('registration_office', $document->registration_office, 'class="form-control input-tip" id="registration_office" required="required"'); ?>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
 
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Registration_Expense", "Registration_Expense"); ?>
+                                <?= lang("Registration_Expense", "Registration_Expense")." <b> *</b>"; ?>
                                 <?php echo form_input('registration_expense', $document->registration_expense, 'class="form-control input-tip" id="registration_expense" required="required"'); ?>
                             </div>
                         </div>
@@ -207,14 +207,14 @@
 
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Rack_No", "Rack_No"); ?>
+                                <?= lang("Rack_No", "Rack_No")." <b> *</b>"; ?>
                                 <?php echo form_input('rack_no', $document->rack_no, 'class="form-control input-tip" id="rack_no" required="required"'); ?>
                             </div>
                         </div>
 
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Location", "Location"); ?>
+                                <?= lang("Location", "Location")." <b> *</b>"; ?>
                                 <?php echo form_input('location', $document->location, 'class="form-control input-tip" id="location" required="required"'); ?>
                             </div>
                         </div>
