@@ -103,10 +103,10 @@ class Document extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('documents') . ".id as id, " . $this->db->dbprefix('documents') . ".name as nam," . $this->db->dbprefix('documents') . ".reference_no as ref," . $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('documents') . ".status_id) as status," . $this->db->dbprefix('doctype') . ".description as p_name,  concat(" . $this->db->dbprefix('documents') . ".url,'#351#'," . $this->db->dbprefix('documents') . ".attachment_name) as url,")
+            ->select($this->db->dbprefix('documents') . ".id as id, " . $this->db->dbprefix('documents') . ".name as nam," . $this->db->dbprefix('documents') . ".reference_no as ref," . $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('documents') . ".seller_name) as seller_names," . $this->db->dbprefix('documents') . ".land_quantity as land_quantity," . $this->db->dbprefix('documents') . ".registration_date as registration_date," . $this->db->dbprefix('districts') . ".district as district," . $this->db->dbprefix('districts') . ".division as division," . $this->db->dbprefix('documents') . ".location as location," . $this->db->dbprefix('documents') . ".rack_no as rack")
             ->from("documents")
             ->join('company', 'documents.company_id=company.id', 'left')
-            ->join('doctype', 'documents.doctype_id=doctype.id', 'left')
+            ->join('districts', 'documents.district_id=districts.id', 'left')
             ->group_by('documents.id')
             ->add_column("Actions", $action, "id");
         echo $this->datatables->generate();
@@ -279,8 +279,27 @@ class Document extends MY_Controller
         $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
         $this->form_validation->set_rules('status_id', lang("status_id"), 'trim|required');
         $this->form_validation->set_rules('doctype_id', lang("doctype_id"), 'trim|required');
+        $this->form_validation->set_rules('land_quantity', lang("land_quantity"), 'trim|required');
+        $this->form_validation->set_rules('seller_name', lang("seller_name"), 'trim|required');
+        $this->form_validation->set_rules('district_id', lang("district_id"), 'trim|required');
         $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
-
+        $this->form_validation->set_rules('price', lang("price"), 'trim');
+        $this->form_validation->set_rules('registration_office', lang("registration_office"), 'trim');
+        $this->form_validation->set_rules('registration_expense', lang("registration_expense"), 'trim');
+        $this->form_validation->set_rules('registration_date', lang("registration_date"), 'trim');
+        $this->form_validation->set_rules('deed_no', lang("deed_no"), 'trim');
+        $this->form_validation->set_rules('deed_date', lang("deed_date"), 'trim');
+        $this->form_validation->set_rules('bia_deed_date', lang("bia_deed_date"), 'trim');
+        $this->form_validation->set_rules('bia_deed_no', lang("bia_deed_no"), 'trim');
+        $this->form_validation->set_rules('khotian_no', lang("khotian_no"), 'trim');
+        $this->form_validation->set_rules('dcr_no', lang("dcr_no"), 'trim');
+        $this->form_validation->set_rules('dag_no', lang("dag_no"), 'trim');
+        $this->form_validation->set_rules('case_no', lang("case_no"), 'trim');
+        $this->form_validation->set_rules('case_date', lang("case_date"), 'trim');
+        $this->form_validation->set_rules('jot_no', lang("jot_no"), 'trim');
+        $this->form_validation->set_rules('mujja', lang("mujja"), 'trim');
+        $this->form_validation->set_rules('rack_no', lang("rack_no"), 'trim|required');
+        $this->form_validation->set_rules('location', lang("location"),'trim|required');
 
         if ($this->form_validation->run() == true) {
             $data = array(
@@ -291,7 +310,30 @@ class Document extends MY_Controller
                 'doctype_id' => $this->input->post('doctype_id'),
                 'created_by' => $this->session->userdata('user_id'),
                 'created_date' => date("Y-m-d H:i:s"),
-                'other_info' => $this->input->post('other_info')
+                'other_info' => $this->input->post('other_info'),
+
+                'district_id' => $this->input->post('district_id'),
+                'seller_name' => $this->input->post('seller_name'),
+                'land_quantity' => $this->input->post('land_quantity'),
+                'price' => $this->input->post('price'),
+                'registration_office' => $this->input->post('registration_office'),
+                'registration_expense' => $this->input->post('registration_expense'),
+                'registration_date' => $this->input->post('registration_date') ? $this->sma->fsd($this->input->post('registration_date')) : NULL,
+                'deed_no' => $this->input->post('deed_no'),
+                'deed_date' => $this->input->post('deed_date') ? $this->sma->fsd($this->input->post('deed_date')) : NULL,
+                'bia_deed_date' => $this->input->post('bia_deed_date') ? $this->sma->fsd($this->input->post('bia_deed_date')) : NULL,
+                'bia_deed_no' => $this->input->post('bia_deed_no'),
+                'khotian_no' => $this->input->post('khotian_no'),
+                'dcr_no' => $this->input->post('dcr_no'),
+                'dag_no' => $this->input->post('dag_no'),
+                'case_no' => $this->input->post('case_no'),
+                'case_date' => $this->input->post('case_date') ? $this->sma->fsd($this->input->post('case_date')) : NULL,
+                'jot_no' => $this->input->post('jot_no'),
+                'mujja' => $this->input->post('mujja'),
+                'rack_no' => $this->input->post('rack_no'),
+                'location' => $this->input->post('location')
+
+
             );
 
 
@@ -327,6 +369,7 @@ class Document extends MY_Controller
             redirect("document/index");
         } else {
             $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+            $this->data['districts'] = $this->site->getAllDistrict();
             $this->data['document'] = $this->document_model->getDocumentById($id);
             $this->data['companies'] = $this->site->getAllCompany();
             $this->data['doctypes'] = $this->site->getAllDocType();
@@ -848,7 +891,7 @@ class Document extends MY_Controller
         $this->data['company'] = $this->document_model->getCompanyById($pr_details->company_id);
         $this->data['district'] = $this->document_model->getDistrictById($pr_details->district_id);
         $this->data['doctype'] = $this->document_model->getDocTypeById($pr_details->doctype_id);
-        $name =  $pr_details->name. ".pdf";
+        $name =  "Document_".$pr_details->name. ".pdf";
         if ($view) {
             $this->load->view($this->theme . 'document/pdf', $this->data);
         } else {

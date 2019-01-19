@@ -29,16 +29,18 @@
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, null, null, null, null, null,{
-                "bSortable": false,
-                "mRender": download
-            },null]
+            }, null, null, null, null, null,null,null,null,null,null,null]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('name');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('reference_no');?>]", filter_type: "text", data: []},
-            {column_number: 3, filter_default_label: "[<?=lang('Company');?>]", filter_type: "text", data: []},
-            {column_number: 4, filter_default_label: "[<?=lang('Status');?>]", filter_type: "text", data: []},
-            {column_number: 5, filter_default_label: "[<?=lang('doc_type');?>]", filter_type: "text", data: []},
+            {column_number: 3, filter_default_label: "[<?=lang('Owner');?>]", filter_type: "text", data: []},
+            {column_number: 4, filter_default_label: "[<?=lang('Seller');?>]", filter_type: "text", data: []},
+            {column_number: 5, filter_default_label: "[<?=lang('Land_Quantity');?>]", filter_type: "text", data: []},
+            {column_number: 6, filter_default_label: "[<?=lang('Registration_Date');?>]", filter_type: "text", data: []},
+            {column_number: 7, filter_default_label: "[<?=lang('District');?>]", filter_type: "text", data: []},
+            {column_number: 8, filter_default_label: "[<?=lang('Division');?>]", filter_type: "text", data: []},
+            {column_number: 9, filter_default_label: "[<?=lang('Location');?>]", filter_type: "text", data: []},
+            {column_number: 10, filter_default_label: "[<?=lang('Rack');?>]", filter_type: "text", data: []},
         ], "footer");
     });
 </script>
@@ -81,18 +83,22 @@
                             <th style="min-width:30px; width: 30px; text-align: center;">
                                 <input class="checkbox checkth" type="checkbox" name="check"/>
                             </th>
-                            <th class="col-xs-3"><?php echo lang('name'); ?></th>
-                            <th class="col-xs-2"><?php echo lang('reference_no'); ?></th>
-                            <th class="col-xs-3"><?php echo lang('company'); ?></th>
-                            <th class="col-xs-2"><?php echo lang('status'); ?></th>
-                            <th class="col-xs-2"><?php echo lang('doc_type'); ?></th>
-                            <th class="col-xs-2"><?php echo lang('Attachment'); ?></th>
+                            <th><?php echo lang('name'); ?></th>
+                            <th><?php echo lang('reference_no'); ?></th>
+                            <th><?php echo lang('Owner'); ?></th>
+                            <th><?php echo lang('Seller'); ?></th>
+                            <th><?php echo lang('Land_Quantity'); ?></th>
+                            <th><?php echo lang('Registration_Date'); ?></th>
+                            <th><?php echo lang('District'); ?></th>
+                            <th><?php echo lang('Division'); ?></th>
+                            <th><?php echo lang('Location'); ?></th>
+                            <th><?php echo lang('Rack'); ?></th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td colspan="8" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
+                            <td colspan="12" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
                         </tr>
                         </tbody>
                         <tfoot class="dtFilter">
@@ -104,8 +110,12 @@
                             <th style="width: 50px;"></th>
                             <th></th>
                             <th ></th>
-                            <th style="width: 150px;"></th>
-                            <th style="width: 150px;"></th>
+                            <th></th>
+                            <th></th>
+                            <th ></th>
+                            <th ></th>
+                            <th ></th>
+                            <th ></th>
                             <th style="width:85px;"><?= lang("actions"); ?></th>
                         </tr>
                         </tfoot>

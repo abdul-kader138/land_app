@@ -152,14 +152,14 @@
                             </a>
                         </div>
                         <div class="btn-group">
-                            <a href="<?= site_url('products/edit/' . $product->id) ?>" class="tip btn btn-warning tip" title="<?= lang('edit_product') ?>">
+                            <a href="<?= site_url('document/edit/' . $document->id) ?>" class="tip btn btn-warning tip" title="<?= lang('Edit_Document') ?>">
                                 <i class="fa fa-edit"></i>
                                 <span class="hidden-sm hidden-xs"><?= lang('edit') ?></span>
                             </a>
                         </div>
                         <div class="btn-group">
-                            <a href="#" class="tip btn btn-danger bpo" title="<b><?= lang("delete_product") ?></b>"
-                               data-content="<div style='width:150px;'><p><?= lang('r_u_sure') ?></p><a class='btn btn-danger' href='<?= site_url('products/delete/' . $product->id) ?>'><?= lang('i_m_sure') ?></a> <button class='btn bpo-close'><?= lang('no') ?></button></div>"
+                            <a href="#" class="tip btn btn-danger bpo" title="<b><?= lang("Delete_Document") ?></b>"
+                               data-content="<div style='width:150px;'><p><?= lang('r_u_sure') ?></p><a class='btn btn-danger' href='<?= site_url('document/delete/' . $document->id) ?>'><?= lang('i_m_sure') ?></a> <button class='btn bpo-close'><?= lang('no') ?></button></div>"
                                data-html="true" data-placement="top">
                                 <i class="fa fa-trash-o"></i>
                                 <span class="hidden-sm hidden-xs"><?= lang('delete') ?></span>

@@ -130,6 +130,10 @@
                             <td style="width: 30%"><b><?= lang("Location"); ?>:</b></td>
                             <td style="width: 70%"><?= $document->location;?></td>
                         </tr>
+                        <tr>
+                            <td style="width: 30%"><b><?= lang("Other_Information"); ?>:</b></td>
+                            <td style="width: 70%"><?= $document->other_info;?></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

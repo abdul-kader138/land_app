@@ -232,7 +232,6 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-                        <hr class="line">
 
                         <div class="row" id="bt">
                             <div class="col-md-12">
