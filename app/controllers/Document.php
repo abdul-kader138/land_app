@@ -68,7 +68,6 @@ class Document extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->data['output_folder'] = $this->listFolder($this->path);
 
-//         $bc = array(array('link' => site_url('home'), 'page' => lang('home')), array('link' => site_url('document/file_explorer'."/".$this->data['output_folder']['path_in_url']), 'page' => lang('document')), array('link' => '#', 'page' => lang('File_Explorer')));
         $bc = array(array('link' => site_url('welcome'), 'page' => lang('home')), array('link' => site_url('document/file_explorer'), 'page' => lang('File_Explorer')), array('link' => '#', 'page' => $this->data['output_folder']['path_in_url']));
 
         $meta = array('page_title' => lang('document'), 'bc' => $bc);
@@ -103,7 +102,7 @@ class Document extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('documents') . ".id as id, " . $this->db->dbprefix('documents') . ".name as nam," . $this->db->dbprefix('documents') . ".reference_no as ref," . $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('documents') . ".seller_name) as seller_names," . $this->db->dbprefix('documents') . ".land_quantity as land_quantity," . $this->db->dbprefix('documents') . ".registration_date as registration_date," . $this->db->dbprefix('districts') . ".district as district," . $this->db->dbprefix('districts') . ".division as division," . $this->db->dbprefix('documents') . ".location as location," . $this->db->dbprefix('documents') . ".rack_no as rack")
+            ->select($this->db->dbprefix('documents') . ".id as id, " . $this->db->dbprefix('documents') . ".name as nam," . $this->db->dbprefix('documents') . ".reference_no as ref,". $this->db->dbprefix('documents') . ".mujja as mujja," . $this->db->dbprefix('districts') . ".district as d_name," . $this->db->dbprefix('districts') .".division as division,". $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('documents') . ".seller_name) as seller_names," . $this->db->dbprefix('documents') . ".land_quantity as land_quantity," . $this->db->dbprefix('documents') . ".registration_date as registration_date,". $this->db->dbprefix('documents') . ".location as location," . $this->db->dbprefix('documents') . ".rack_no as rack")
             ->from("documents")
             ->join('company', 'documents.company_id=company.id', 'left')
             ->join('districts', 'documents.district_id=districts.id', 'left')
@@ -150,6 +149,11 @@ class Document extends MY_Controller
         $this->form_validation->set_rules('mujja', lang("mujja"), 'trim');
         $this->form_validation->set_rules('rack_no', lang("rack_no"), 'trim|required');
         $this->form_validation->set_rules('location', lang("location"),'trim|required');
+        $this->form_validation->set_rules('holding_no', lang("holding_no"),'trim');
+        $this->form_validation->set_rules('mouza_value', lang("mouza_value"),'trim|numeric');
+        $this->form_validation->set_rules('present_value', lang("present_value"),'trim|numeric');
+        $this->form_validation->set_rules('bank_info', lang("bank_info"),'trim');
+        $this->form_validation->set_rules('khajna_date', lang("khajna_date"), 'trim|callback_date_valid');
 
         if ($this->form_validation->run() == true) {
 
@@ -185,7 +189,12 @@ class Document extends MY_Controller
                 'jot_no' => $this->input->post('jot_no'),
                 'mujja' => $this->input->post('mujja'),
                 'rack_no' => $this->input->post('rack_no'),
-                'location' => $this->input->post('location')
+                'location' => $this->input->post('location'),
+                'holding_no' => $this->input->post('holding_no'),
+                'mouza_value' => $this->input->post('mouza_value'),
+                'present_value' => $this->input->post('present_value'),
+                'bank_info' => $this->input->post('bank_info'),
+                'khajna_date' => $this->input->post('khajna_date') ? $this->sma->fsd($this->input->post('khajna_date')) : NULL,
             );
 
             if ($_FILES['document']['size'] > 0) {
@@ -300,6 +309,11 @@ class Document extends MY_Controller
         $this->form_validation->set_rules('mujja', lang("mujja"), 'trim');
         $this->form_validation->set_rules('rack_no', lang("rack_no"), 'trim|required');
         $this->form_validation->set_rules('location', lang("location"),'trim|required');
+        $this->form_validation->set_rules('holding_no', lang("holding_no"),'trim');
+        $this->form_validation->set_rules('mouza_value', lang("mouza_value"),'trim|numeric');
+        $this->form_validation->set_rules('present_value', lang("present_value"),'trim|numeric');
+        $this->form_validation->set_rules('bank_info', lang("bank_info"),'trim');
+        $this->form_validation->set_rules('khajna_date', lang("khajna_date"), 'trim|callback_date_valid');
 
         if ($this->form_validation->run() == true) {
             $data = array(
@@ -308,8 +322,8 @@ class Document extends MY_Controller
                 'company_id' => $this->input->post('company_id'),
                 'status_id' => $this->input->post('status_id'),
                 'doctype_id' => $this->input->post('doctype_id'),
-                'created_by' => $this->session->userdata('user_id'),
-                'created_date' => date("Y-m-d H:i:s"),
+                'updated_by' => $this->session->userdata('user_id'),
+                'updated_date' => date("Y-m-d H:i:s"),
                 'other_info' => $this->input->post('other_info'),
 
                 'district_id' => $this->input->post('district_id'),
@@ -331,7 +345,12 @@ class Document extends MY_Controller
                 'jot_no' => $this->input->post('jot_no'),
                 'mujja' => $this->input->post('mujja'),
                 'rack_no' => $this->input->post('rack_no'),
-                'location' => $this->input->post('location')
+                'location' => $this->input->post('location'),
+                'holding_no' => $this->input->post('holding_no'),
+                'mouza_value' => $this->input->post('mouza_value'),
+                'present_value' => $this->input->post('present_value'),
+                'bank_info' => $this->input->post('bank_info'),
+                'khajna_date' => $this->input->post('khajna_date') ? $this->sma->fsd($this->input->post('khajna_date')) : NULL,
 
 
             );
@@ -781,8 +800,8 @@ class Document extends MY_Controller
         if ($this->Owner || $this->Admin) {
             $root_options = array(
                 'driver' => 'LocalFileSystem',
-                'path' => set_realpath('assets/uploads/document'),
-                'URL' => site_url('assets/uploads/document/'),
+                'path' => set_realpath('app/document_directory/document'),
+                'URL' => site_url('app/document_directory/document/'),
                 'uploadMaxSize' => $this->allowed_file_size . 'M',
                 'accessControl' => 'access',
                 'uploadAllow' => array('application/pdf',
@@ -821,8 +840,8 @@ class Document extends MY_Controller
 
             $root_options = array(
                 'driver' => 'LocalFileSystem',
-                'path' => set_realpath('assets/uploads/document'),
-                'URL' => site_url('assets/uploads/document/'),
+                'path' => set_realpath('app/document_directory/document'),
+                'URL' => site_url('app/document_directory/document/'),
                 'uploadMaxSize' => $this->allowed_file_size_new . 'M',
                 'accessControl' => 'access',
                 'uploadAllow' => array('application/pdf',

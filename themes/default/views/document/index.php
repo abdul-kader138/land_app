@@ -26,21 +26,34 @@
                 nRow.className = "document_link";
                 return nRow;
             },
+            "fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay) {
+                var gtotal = 0, paid = 0, balance = 0;
+                for (var i = 0; i < aaData.length; i++) {
+                    // gtotal += parseFloat(aaData[aiDisplay[i]][5]);
+                    // paid += parseFloat(aaData[aiDisplay[i]][7]);
+                    balance += parseFloat(aaData[aiDisplay[i]][8]);
+                }
+                var nCells = nRow.getElementsByTagName('th');
+                // nCells[5].innerHTML = currencyFormat(parseFloat(gtotal));
+                // nCells[7].innerHTML = currencyFormat(parseFloat(paid));
+                nCells[8].innerHTML = currencyFormat(parseFloat(balance));
+            },
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, null, null, null, null, null,null,null,null,null,null,null]
+            }, null, null, null, null,null, null,null,null,null,null,null,null]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('name');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('reference_no');?>]", filter_type: "text", data: []},
-            {column_number: 3, filter_default_label: "[<?=lang('Owner');?>]", filter_type: "text", data: []},
-            {column_number: 4, filter_default_label: "[<?=lang('Seller');?>]", filter_type: "text", data: []},
-            {column_number: 5, filter_default_label: "[<?=lang('Land_Quantity');?>]", filter_type: "text", data: []},
-            {column_number: 6, filter_default_label: "[<?=lang('Registration_Date');?>]", filter_type: "text", data: []},
-            {column_number: 7, filter_default_label: "[<?=lang('District');?>]", filter_type: "text", data: []},
-            {column_number: 8, filter_default_label: "[<?=lang('Division');?>]", filter_type: "text", data: []},
-            {column_number: 9, filter_default_label: "[<?=lang('Location');?>]", filter_type: "text", data: []},
-            {column_number: 10, filter_default_label: "[<?=lang('Rack');?>]", filter_type: "text", data: []},
+            {column_number: 3, filter_default_label: "[<?=lang('Mouza');?>]", filter_type: "text", data: []},
+            {column_number: 4, filter_default_label: "[<?=lang('District');?>]", filter_type: "text", data: []},
+            {column_number: 5, filter_default_label: "[<?=lang('Division');?>]", filter_type: "text", data: []},
+            {column_number: 6, filter_default_label: "[<?=lang('Owner');?>]", filter_type: "text", data: []},
+            {column_number: 7, filter_default_label: "[<?=lang('Seller');?>]", filter_type: "text", data: []},
+            {column_number: 8, filter_default_label: "[<?=lang('Land_Quantity');?>]", filter_type: "text", data: []},
+            {column_number: 9, filter_default_label: "[<?=lang('Registration_Date');?>]", filter_type: "text", data: []},
+            {column_number: 10, filter_default_label: "[<?=lang('Location');?>]", filter_type: "text", data: []},
+            {column_number: 11, filter_default_label: "[<?=lang('Rack');?>]", filter_type: "text", data: []},
         ], "footer");
     });
 </script>
@@ -85,12 +98,13 @@
                             </th>
                             <th><?php echo lang('name'); ?></th>
                             <th><?php echo lang('reference_no'); ?></th>
+                            <th><?php echo lang('Mouza'); ?></th>
+                            <th><?php echo lang('District'); ?></th>
+                            <th><?php echo lang('Division'); ?></th>
                             <th><?php echo lang('Owner'); ?></th>
                             <th><?php echo lang('Seller'); ?></th>
                             <th><?php echo lang('Land_Quantity'); ?></th>
                             <th><?php echo lang('Registration_Date'); ?></th>
-                            <th><?php echo lang('District'); ?></th>
-                            <th><?php echo lang('Division'); ?></th>
                             <th><?php echo lang('Location'); ?></th>
                             <th><?php echo lang('Rack'); ?></th>
                             <th></th>
@@ -98,7 +112,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td colspan="12" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
+                            <td colspan="13" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
                         </tr>
                         </tbody>
                         <tfoot class="dtFilter">
@@ -107,9 +121,10 @@
                                 <input class="checkbox checkft" type="checkbox" name="check"/>
                             </th>
                             <th></th>
-                            <th style="width: 50px;"></th>
+                            <th></th>
                             <th></th>
                             <th ></th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th ></th>
