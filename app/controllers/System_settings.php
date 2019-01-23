@@ -961,6 +961,10 @@ class system_settings extends MY_Controller
                 'document-upload' => $this->input->post('document-upload'),
                 'document-file_delete' => $this->input->post('document-file_delete'),
                 'document-folder_create' => $this->input->post('document-folder_create'),
+                'document-list_baina' => $this->input->post('document-list_baina'),
+                'document-add_baina' => $this->input->post('document-add_baina'),
+                'document-edit_baina' => $this->input->post('document-edit_baina'),
+                'document-delete_baina' => $this->input->post('document-delete_baina'),
 
 
             );

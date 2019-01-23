@@ -152,4 +152,40 @@ class Document_model extends CI_Model
         }
         return FALSE;
     }
+
+    public function getBainaById($id)
+    {
+        $q = $this->db->get_where('baina', array('id' => $id), 1);
+        if ($q->num_rows() > 0) {
+            return $q->row();
+        }
+        return FALSE;
+    }
+
+    public function addBaina($data = array())
+    {
+        if ($this->db->insert('baina', $data)) {
+            $cid = $this->db->insert_id();
+            return $cid;
+        }
+        return false;
+    }
+
+
+    public function updateBaina($id, $data = array())
+    {
+        $this->db->where('id', $id);
+        if ($this->db->update('baina', $data)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function deleteBaina($id)
+    {
+        if ($this->db->delete('baina', array('id' => $id)))  return true;
+        else return FALSE;
+    }
+
+
 } 

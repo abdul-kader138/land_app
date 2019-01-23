@@ -373,6 +373,24 @@
                                     <td>
                                     </td>
                                 </tr>
+
+                                <tr>
+                                    <td><?= lang("Baina"); ?></td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="document-list_baina" <?php echo $p->{'document-list_baina'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="document-add_baina" <?php echo $p->{'document-add_baina'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="document-edit_baina" <?php echo $p->{'document-edit_baina'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" value="1" class="checkbox" name="document-delete_baina" <?php echo $p->{'document-delete_baina'} ? "checked" : ''; ?>>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td><?= lang("package"); ?></td>
                                     <td class="text-center">

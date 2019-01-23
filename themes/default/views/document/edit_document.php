@@ -132,8 +132,8 @@
 
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Registration_Expense", "Registration_Expense") . " <b> *</b>"; ?>
-                                <?php echo form_input('registration_expense', $document->registration_expense, 'class="form-control input-tip" id="registration_expense" required="required"'); ?>
+                                <?= lang("Registration_Expense", "Registration_Expense"); ?>
+                                <?php echo form_input('registration_expense', $document->registration_expense, 'class="form-control input-tip" id="registration_expense"'); ?>
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -224,7 +224,7 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <?= lang("Khajna_Update_Upto", "Khajna_Update_Upto"); ?>
-                                <?php echo form_input('khajna_date', $this->sma->hrld_date($document->khajna_date), 'class="form-control input-tip date" number id="khajna_date"'); ?>
+                                <?php echo form_input('khajna_date', $document->khajna_date, 'class="form-control input-tip" number id="khajna_date"'); ?>
                             </div>
                         </div>
                         <div class="clearfix"></div>

@@ -153,7 +153,7 @@ class Document extends MY_Controller
         $this->form_validation->set_rules('mouza_value', lang("mouza_value"),'trim|numeric');
         $this->form_validation->set_rules('present_value', lang("present_value"),'trim|numeric');
         $this->form_validation->set_rules('bank_info', lang("bank_info"),'trim');
-        $this->form_validation->set_rules('khajna_date', lang("khajna_date"), 'trim|callback_date_valid');
+        $this->form_validation->set_rules('khajna_date', lang("khajna_date"), 'trim');
 
         if ($this->form_validation->run() == true) {
 
@@ -194,7 +194,7 @@ class Document extends MY_Controller
                 'mouza_value' => $this->input->post('mouza_value'),
                 'present_value' => $this->input->post('present_value'),
                 'bank_info' => $this->input->post('bank_info'),
-                'khajna_date' => $this->input->post('khajna_date') ? $this->sma->fsd($this->input->post('khajna_date')) : NULL,
+                'khajna_date' => $this->input->post('khajna_date')
             );
 
             if ($_FILES['document']['size'] > 0) {
@@ -313,7 +313,7 @@ class Document extends MY_Controller
         $this->form_validation->set_rules('mouza_value', lang("mouza_value"),'trim|numeric');
         $this->form_validation->set_rules('present_value', lang("present_value"),'trim|numeric');
         $this->form_validation->set_rules('bank_info', lang("bank_info"),'trim');
-        $this->form_validation->set_rules('khajna_date', lang("khajna_date"), 'trim|callback_date_valid');
+        $this->form_validation->set_rules('khajna_date', lang("khajna_date"), 'trim');
 
         if ($this->form_validation->run() == true) {
             $data = array(
@@ -350,7 +350,7 @@ class Document extends MY_Controller
                 'mouza_value' => $this->input->post('mouza_value'),
                 'present_value' => $this->input->post('present_value'),
                 'bank_info' => $this->input->post('bank_info'),
-                'khajna_date' => $this->input->post('khajna_date') ? $this->sma->fsd($this->input->post('khajna_date')) : NULL,
+                'khajna_date' => $this->input->post('khajna_date')
 
 
             );
@@ -934,4 +934,268 @@ class Document extends MY_Controller
         }
         return true;
     }
+
+    function list_baina()
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['document-list_baina'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => '#', 'page' => lang('list_baina')));
+        $meta = array('page_title' => lang('list_baina'), 'bc' => $bc);
+        $this->page_construct('document/list_baina', $meta, $this->data);
+    }
+
+
+    function getBainas()
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['document-list_baina'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        $edit_link = "";
+        $delete_link = "";
+        if ($get_permission['document-edit'] || $this->Owner || $this->Admin) $edit_link = anchor('document/edit_baina/$1', '<i class="fa fa-edit"></i> ' . lang('edit'), 'class="sledit"');
+        if ($get_permission['document-delete'] || $this->Owner || $this->Admin) $delete_link = "<a href='#' class='po' title='<b>" . lang("delete") . "</b>' data-content=\"<p>"
+            . lang('r_u_sure') . "</p><a class='btn btn-danger po-delete' href='" . site_url('document/delete_baina/$1') . "'>"
+            . lang('i_m_sure') . "</a> <button class='btn po-close'>" . lang('no') . "</button>\"  rel='popover'><i class=\"fa fa-trash-o\"></i> "
+            . lang('delete') . "</a>";
+        $action = '<div class="text-center"><div class="btn-group text-left">'
+            . '<button type="button" class="btn btn-default btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">'
+            . lang('actions') . ' <span class="caret"></span></button>
+        <ul class="dropdown-menu pull-right" role="menu">
+            <li>' . $edit_link . '</li>
+            <li>' . $delete_link . '</li>
+        </ul>
+    </div></div>';
+        $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
+        $this->load->library('datatables');
+        $this->datatables
+            ->select($this->db->dbprefix('baina') . ".id as id, " . $this->db->dbprefix('baina') . ".name as nam," . $this->db->dbprefix('baina') . ".reference_no as ref,". $this->db->dbprefix('baina') . ".mujja as mujja," . $this->db->dbprefix('districts') . ".district as d_name,"
+                . $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('baina') . ".seller_name) as seller_names," . $this->db->dbprefix('baina') . ".land_quantity as land_quantity," . $this->db->dbprefix('baina') . ".price as price,". $this->db->dbprefix('baina') . ".total_amount as total_amount," . $this->db->dbprefix('baina') .
+                ".advance_amount as advance_amount,". $this->db->dbprefix('baina') . ".dues as dues,". $this->db->dbprefix('baina') . ".expire_date as expire_date")
+            ->from("baina")
+            ->join('company', 'baina.company_id=company.id', 'left')
+            ->join('districts', 'baina.district_id=districts.id', 'left')
+            ->group_by('baina.id')
+            ->add_column("Actions", $action, "id");
+        echo $this->datatables->generate();
+    }
+
+    public function add_baina()
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['document-add_baina'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        $this->data['title'] = "Add Baina";
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required');
+        $this->form_validation->set_rules('reference_no', lang("reference_no"), 'trim');
+        $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
+        $this->form_validation->set_rules('doctype_id', lang("doctype_id"), 'trim|required');
+        $this->form_validation->set_rules('land_quantity', lang("land_quantity"), 'trim|required|numeric');
+        $this->form_validation->set_rules('seller_name', lang("seller_name"), 'trim|required');
+        $this->form_validation->set_rules('district_id', lang("district_id"), 'trim|required');
+        $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
+        $this->form_validation->set_rules('price', lang("price"), 'trim|numeric|required');
+        $this->form_validation->set_rules('mujja', lang("mujja"), 'trim|required');
+        $this->form_validation->set_rules('advance_amount', lang("advance_amount"),'trim|required|numeric');
+        $this->form_validation->set_rules('expire_date', lang("expire_date"), 'trim|callback_date_valid');
+        $this->form_validation->set_rules('baina_date', lang("baina_date"), 'trim|callback_date_valid');
+
+
+        if ($this->form_validation->run() == true) {
+            $total_amount=($this->input->post('price') * $this->input->post('land_quantity'));
+            $dues=($total_amount - $this->input->post('advance_amount'));
+
+            $data = array(
+                'name' => $this->input->post('name'),
+                'reference_no' => $this->input->post('reference_no'),
+                'company_id' => $this->input->post('company_id'),
+                'doctype_id' => $this->input->post('doctype_id'),
+                'created_by' => $this->session->userdata('user_id'),
+                'created_date' => date("Y-m-d H:i:s"),
+                'other_info' => $this->input->post('other_info'),
+                'district_id' => $this->input->post('district_id'),
+                'seller_name' => $this->input->post('seller_name'),
+                'land_quantity' => $this->input->post('land_quantity'),
+                'price' => $this->input->post('price'),
+                'mujja' => $this->input->post('mujja'),
+                'total_amount' => $total_amount,
+                'advance_amount' => $this->input->post('advance_amount'),
+                'dues' => $dues,
+                'baina_date' => $this->input->post('baina_date') ? $this->sma->fsd($this->input->post('baina_date')) : NULL,
+                'expire_date' => $this->input->post('expire_date') ? $this->sma->fsd($this->input->post('expire_date')) : NULL,
+            );
+
+        }
+
+        if ($this->form_validation->run() == true && $this->document_model->addBaina($data)) {
+            $this->session->set_flashdata('message', lang("doc_baina_added"));
+            redirect("document/list_baina");
+
+        } else {
+            $data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+
+            $this->data['districts'] = $this->site->getAllDistrict();
+            $this->data['companies'] = $this->site->getAllCompany();
+            $this->data['doctypes'] = $this->site->getAllDocType();
+
+            $bc = array(array('link' => base_url(), 'page' => lang('home')), array('link' => site_url('document'), 'page' => lang('document')), array('link' => '#', 'page' => lang('add_baina')));
+            $meta = array('page_title' => lang('add_baina'), 'bc' => $bc);
+            $this->page_construct('document/add_baina', $meta, $this->data);
+        }
+    }
+
+
+
+
+    function edit_baina($id = NULL)
+    {
+
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['document-edit_baina'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+        if ($this->input->post('id')) {
+            $id = $this->input->post('id');
+        }
+
+        $this->data['title'] = "Edit Baina";
+        $this->form_validation->set_rules('name', lang("name"), 'trim|required');
+        $this->form_validation->set_rules('reference_no', lang("reference_no"), 'trim');
+        $this->form_validation->set_rules('company_id', lang("company_id"), 'trim|required');
+        $this->form_validation->set_rules('doctype_id', lang("doctype_id"), 'trim|required');
+        $this->form_validation->set_rules('land_quantity', lang("land_quantity"), 'trim|required|numeric');
+        $this->form_validation->set_rules('seller_name', lang("seller_name"), 'trim|required');
+        $this->form_validation->set_rules('district_id', lang("district_id"), 'trim|required');
+        $this->form_validation->set_rules('other_info', lang("other_info"), 'trim');
+        $this->form_validation->set_rules('price', lang("price"), 'trim|numeric|required');
+        $this->form_validation->set_rules('mujja', lang("mujja"), 'trim|required');
+        $this->form_validation->set_rules('advance_amount', lang("advance_amount"),'trim|required|numeric');
+        $this->form_validation->set_rules('expire_date', lang("expire_date"), 'trim|callback_date_valid');
+        $this->form_validation->set_rules('baina_date', lang("baina_date"), 'trim|callback_date_valid');
+
+        if ($this->form_validation->run() == true) {
+            $total_amount = ($this->input->post('price') * $this->input->post('land_quantity'));
+            $dues = ($total_amount - $this->input->post('advance_amount'));
+
+            $data = array(
+                'name' => $this->input->post('name'),
+                'reference_no' => $this->input->post('reference_no'),
+                'company_id' => $this->input->post('company_id'),
+                'doctype_id' => $this->input->post('doctype_id'),
+                'created_by' => $this->session->userdata('user_id'),
+                'created_date' => date("Y-m-d H:i:s"),
+                'other_info' => $this->input->post('other_info'),
+                'district_id' => $this->input->post('district_id'),
+                'seller_name' => $this->input->post('seller_name'),
+                'land_quantity' => $this->input->post('land_quantity'),
+                'price' => $this->input->post('price'),
+                'mujja' => $this->input->post('mujja'),
+                'total_amount' => $total_amount,
+                'advance_amount' => $this->input->post('advance_amount'),
+                'dues' => $dues,
+                'baina_date' => $this->input->post('baina_date') ? $this->sma->fsd($this->input->post('baina_date')) : NULL,
+                'expire_date' => $this->input->post('expire_date') ? $this->sma->fsd($this->input->post('expire_date')) : NULL,
+            );
+        }
+
+        if ($this->form_validation->run() === TRUE && $this->document_model->updateBaina($id, $data)) {
+            $this->session->set_flashdata('message', lang('doc_baina_updated'));
+            redirect("document/list_baina");
+        } else {
+            $this->data['error'] = (validation_errors() ? validation_errors() : $this->session->flashdata('error'));
+            $this->data['districts'] = $this->site->getAllDistrict();
+            $this->data['document'] = $this->document_model->getBainaById($id);
+            $this->data['companies'] = $this->site->getAllCompany();
+            $this->data['doctypes'] = $this->site->getAllDocType();
+            $bc = array(array('link' => site_url('home'), 'page' => lang('home')), array('link' => site_url('document/edit'), 'page' => lang('document')), array('link' => '#', 'page' => lang('Edit_Baina')));
+            $meta = array('page_title' => lang('Edit_Baina'), 'bc' => $bc);
+            $this->page_construct('document/edit_baina', $meta, $this->data);
+        }
+    }
+
+    function delete_baina($id = NULL)
+    {
+        if (!$this->Owner && !$this->Admin) {
+            $get_permission = $this->permission_details[0];
+            if ((!$get_permission['document-delete_baina'])) {
+                $this->session->set_flashdata('warning', lang('access_denied'));
+                die("<script type='text/javascript'>setTimeout(function(){ window.top.location.href = '" . (isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : site_url('welcome')) . "'; }, 10);</script>");
+                redirect($_SERVER["HTTP_REFERER"]);
+            }
+        }
+
+        if ($this->input->get('id')) {
+            $id = $this->input->get('id');
+        }
+        if ($this->document_model->deleteBaina($id)) {
+            if ($this->input->is_ajax_request()) {
+                echo lang("doc_deleted");
+                die();
+            }
+            $this->session->set_flashdata('message', lang('doc_baina_deleted'));
+            redirect('document/list_baina');
+        }
+    }
+
+
+    function modal_view_baina($id = NULL) {
+        $this->sma->checkPermissions('list_baina', TRUE);
+
+        $pr_details = $this->document_model->getBainaById($id);
+        if (!$id || !$pr_details) {
+            $this->session->set_flashdata('error', lang('doc_not_found'));
+            $this->sma->md();
+        }
+        $this->data['document'] = $pr_details;
+        $this->data['unit'] = "Decimal";
+        $this->data['company'] = $this->document_model->getCompanyById($pr_details->company_id);
+        $this->data['district'] = $this->document_model->getDistrictById($pr_details->district_id);
+        $this->data['doctype'] = $this->document_model->getDocTypeById($pr_details->doctype_id);
+        $this->load->view($this->theme . 'document/modal_view_baina', $this->data);
+    }
+
+    function pdf_baina($id = NULL, $view = NULL) {
+        $this->sma->checkPermissions('list_baina', TRUE);
+
+        $pr_details = $this->document_model->getBainaById($id);
+        if (!$id || !$pr_details) {
+            $this->session->set_flashdata('error', lang('doc_not_found'));
+            $this->sma->md();
+        }
+        $this->data['document'] = $pr_details;
+        $this->data['unit'] = "Decimal";
+        $this->data['company'] = $this->document_model->getCompanyById($pr_details->company_id);
+        $this->data['district'] = $this->document_model->getDistrictById($pr_details->district_id);
+        $this->data['doctype'] = $this->document_model->getDocTypeById($pr_details->doctype_id);
+        $name =  "Document_Baina_".$pr_details->name. ".pdf";
+        if ($view) {
+            $this->load->view($this->theme . 'document/pdf_baina', $this->data);
+        } else {
+            $html = $this->load->view($this->theme . 'document/pdf_baina', $this->data, TRUE);
+            $this->sma->generate_pdf($html, $name);
+        }
+    }
+
 }

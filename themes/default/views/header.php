@@ -415,6 +415,18 @@ if ($Owner || $Admin) {
                         class="text"> <?= lang('add_document'); ?></span>
                 </a>
             </li>
+            <li id="document_index">
+                <a class="submenu" href="<?= site_url('document/list_baina'); ?>">
+                    <i class="fa fa-list-alt"></i><span
+                            class="text"> <?= lang('list_baina'); ?></span>
+                </a>
+            </li>
+            <li id="document_add_baina">
+                <a class="submenu" href="<?= site_url('document/add_baina'); ?>">
+                    <i class="fa fa-file-archive-o"></i><span
+                            class="text"> <?= lang('add_baina'); ?></span>
+                </a>
+            </li>
             <li id="document_doc_movement_list">
                 <a class="submenu" href="<?= site_url('document/doc_movement_list'); ?>">
                     <i class="fa fa-plus"></i><span
@@ -1396,7 +1408,7 @@ if ($Owner || $Admin) {
         </li>
     <?php } ?>
 
-    <?php if ($GP['document-index'] || $GP['document-add'] || $GP['document-edit'] ||
+    <?php if ($GP['document-index'] || $GP['document-add_baina'] || $GP['document-edit_baina'] || $GP['document-list_baina'] || $GP['document-delete_baina'] || $GP['document-edit'] ||
 //        $GP['document-delete'] || $GP['employees-employee_by_csv'] || $GP['employees-bill_add'] || $GP['employees-bill_index']
         $GP['document-delete']
     ) {
@@ -1421,6 +1433,22 @@ if ($Owner || $Admin) {
                         <a class="submenu" href="<?= site_url('document/add'); ?>">
                             <i class="fa fa-plus"></i><span
                                 class="text"> <?= lang('add_document'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if ($GP['document-list_baina']) { ?>
+                    <li id="document_list_baina">
+                        <a class="submenu" href="<?= site_url('document/list_baina'); ?>">
+                            <i class="fa fa-list-alt"></i><span
+                                    class="text"> <?= lang('List_Baina'); ?></span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if ($GP['document-add_baina']) { ?>
+                    <li id="document_add_baina">
+                        <a class="submenu" href="<?= site_url('document/add_baina'); ?>">
+                            <i class="fa fa-file-archive-o"></i><span
+                                    class="text"> <?= lang('Add_Baina'); ?></span>
                         </a>
                     </li>
                 <?php } ?>

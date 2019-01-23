@@ -40,3 +40,9 @@ $lang['doc_movement']                     = "Document Movement";
 $lang['doc_mov_added']                    = "Document Movement successfully added.";
 $lang['doc_mov_updated']                  = "Document Movement successfully updated.";
 $lang['doc_mov_deleted']                  = "Document Movement successfully deleted.";
+
+$lang['add_baina']                        = "Add Baina";
+$lang['list_baina']                       = "List Baina";
+$lang['doc_baina_added']                  = "Baina successfully added.";
+$lang['doc_baina_updated']                = "Baina successfully updated.";
+$lang['doc_baina_deleted']                = "Baina successfully deleted.";

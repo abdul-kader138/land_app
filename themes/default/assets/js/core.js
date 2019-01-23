@@ -1086,6 +1086,11 @@ $(document).ready(function() {
         $('#myModal').modal('show');
         //window.location.href = site.base_url + 'products/view/' + $(this).parent('.product_link').attr('id');
     });
+    $('body').on('click', '.document_link_baina td:not(:first-child, :nth-child(2), :last-child)', function() {
+        $('#myModal').modal({remote: site.base_url + 'document/modal_view_baina/' + $(this).parent('.document_link_baina').attr('id')});
+        $('#myModal').modal('show');
+        //window.location.href = site.base_url + 'products/view/' + $(this).parent('.product_link').attr('id');
+    });
     $('#clearLS').click(function(event) {
         bootbox.confirm(lang.r_u_sure, function(result) {
             if(result == true) {

@@ -593,3 +593,5 @@ $lang['edit_movement']                  = "Edit Document Movement";
 $lang['delete_movement']                = "Delete Document Movement";
 $lang['file_manager']                   = "File Manager";
 
+$lang['add_baina']               = "Add Baina";
+$lang['list_baina']              = "List Baina";
