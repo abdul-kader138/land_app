@@ -87,19 +87,6 @@ class Reports_model extends CI_Model
         return FALSE;
     }
 
-    // public function getmonthlyPurchases()
-    // {
-    //     $myQuery = "SELECT (CASE WHEN date_format( date, '%b' ) Is Null THEN 0 ELSE date_format( date, '%b' ) END) as month, SUM( COALESCE( total, 0 ) ) AS purchases FROM purchases WHERE date >= date_sub( now( ) , INTERVAL 12 MONTH ) GROUP BY date_format( date, '%b' ) ORDER BY date_format( date, '%m' ) ASC";
-    //     $q = $this->db->query($myQuery);
-    //     if ($q->num_rows() > 0) {
-    //         foreach (($q->result()) as $row) {
-    //             $data[] = $row;
-    //         }
-    //         return $data;
-    //     }
-    //     return FALSE;
-    // }
-
     public function getChartData()
     {
         $myQuery = "SELECT S.month,

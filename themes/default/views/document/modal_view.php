@@ -147,6 +147,10 @@
                                 <td style="width: 70%"><?= $document->holding_no;?></td>
                             </tr>
                             <tr>
+                                <td style="width: 30%"><b><?= lang("Khash_Land_Quantity"); ?>:</b></td>
+                                <td style="width: 70%"><?= $document->khash_land_quantity;?></td>
+                            </tr>
+                            <tr>
                                 <td style="width: 30%"><b><?= lang("Status"); ?>:</b></td>
                                 <td style="width: 70%"><?= $document->status_id;?></td>
                             </tr>
@@ -161,15 +165,24 @@
                 </div>
                 </div>
                 <div class="clearfix"></div>
-                <?php if($document->bank_info){ ?>
+                <?php if($document->bank_name){ ?>
                 <div class="col-xs-12">
                     <div class="table-responsive">
                         <table class="table table-bordered">
+                            <thead>
+                            <th colspan="2">Mortgage Information</th>
+                            </thead>
                             <tbody>
                             <tr>
-                                <td style="text-align: center">Bank Information</td>
+                                <td><b>Bank Name</b></td>
+                                <td><?= $document->bank_name;?></td>
                             </tr>
                             <tr>
+                                <td><b>Branch Name</b></td>
+                                <td><?= $document->branch_name;?></td>
+                            </tr>
+                            <tr>
+                                <td><b>Additional Info</b></td>
                                 <td><?= $document->bank_info;?></td>
                             </tr>
                             </tbody>
@@ -181,10 +194,10 @@
                 <div class="col-xs-12">
                     <div class="table-responsive">
                         <table class="table table-bordered">
+                            <thead>
+                            <th>Other Information</th>
+                            </thead>
                             <tbody>
-                            <tr>
-                                <td style="text-align: center">Other Information</td>
-                            </tr>
                             <tr>
                                 <td><?= $document->other_info;?></td>
                             </tr>

@@ -228,6 +228,13 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <?= lang("Khash_Land_Quantity", "Khash_Land_Quantity"); ?>
+                                <?php echo form_input('khash_land_quantity', $document->khash_land_quantity, 'class="form-control input-tip" id="khash_land_quantity" '); ?>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
                         <hr class="line">
 
                         <div class="col-sm-4">
@@ -255,17 +262,43 @@
 
                         <div class="row" id="bt">
                             <div class="col-md-12">
+                                <div class="combo" style="margin-left: 13px;margin-right: 13px;">
+
+                                    <div class="control-group table-group">
+                                        <label class="table-label"
+                                               for="combo"><?= lang("Mortgage Information"); ?></label>
+                                        <div class="controls table-controls">
+                                            <table id="prTable"
+                                                   class="table items table-striped table-bordered table-condensed table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th class="col-md-6 col-sm-6 col-xs-6"><?= lang('Bank_Name'); ?></th>
+                                                    <th class="col-md-6 col-sm-6 col-xs-6"><?= lang("Branch"); ?></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th> <?php echo form_input('bank_name', $document->bank_name, 'class="form-control input-tip" id="bank_name"'); ?>
+                                                    </th>
+                                                    <th><?php echo form_input('branch_name', $document->branch_name, 'class="form-control input-tip" id="branch_name"'); ?></th>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <?= lang("Bank_Info", "Bank_Info"); ?>
+                                        <?= lang("Remarks", "Remarks"); ?>
                                         <?php echo form_textarea('bank_info', $document->bank_info, 'class="form-control" id="bank_info" style="margin-top: 10px; height: 100px;"'); ?>
                                     </div>
                                 </div>
 
                             </div>
-
+                        <hr class="line">
                         </div>
-                        <div class="clearfix"></div>
+                        <hr class="line">
 
                         <div class="row" id="bt">
                             <div class="col-md-12">

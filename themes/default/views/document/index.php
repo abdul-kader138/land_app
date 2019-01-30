@@ -47,13 +47,13 @@
             {column_number: 2, filter_default_label: "[<?=lang('reference_no');?>]", filter_type: "text", data: []},
             {column_number: 3, filter_default_label: "[<?=lang('Mouza');?>]", filter_type: "text", data: []},
             {column_number: 4, filter_default_label: "[<?=lang('District');?>]", filter_type: "text", data: []},
-            {column_number: 5, filter_default_label: "[<?=lang('Division');?>]", filter_type: "text", data: []},
+            {column_number: 5, filter_default_label: "[<?=lang('Deed_No');?>]", filter_type: "text", data: []},
             {column_number: 6, filter_default_label: "[<?=lang('Owner');?>]", filter_type: "text", data: []},
             {column_number: 7, filter_default_label: "[<?=lang('Seller');?>]", filter_type: "text", data: []},
             {column_number: 8, filter_default_label: "[<?=lang('Land_Quantity');?>]", filter_type: "text", data: []},
-            {column_number: 9, filter_default_label: "[<?=lang('Registration_Date');?>]", filter_type: "text", data: []},
-            {column_number: 10, filter_default_label: "[<?=lang('Location');?>]", filter_type: "text", data: []},
-            {column_number: 11, filter_default_label: "[<?=lang('Rack');?>]", filter_type: "text", data: []},
+            {column_number: 9, filter_default_label: "[<?=lang('Deed_Date');?>]", filter_type: "text", data: []},
+            {column_number: 10, filter_default_label: "[<?=lang('Bank');?>]", filter_type: "text", data: []},
+            {column_number: 11, filter_default_label: "[<?=lang('Branch');?>]", filter_type: "text", data: []},
         ], "footer");
     });
 </script>
@@ -100,13 +100,13 @@
                             <th><?php echo lang('reference_no'); ?></th>
                             <th><?php echo lang('Mouza'); ?></th>
                             <th><?php echo lang('District'); ?></th>
-                            <th><?php echo lang('Division'); ?></th>
+                            <th><?php echo lang('Deed_No'); ?></th>
                             <th><?php echo lang('Owner'); ?></th>
                             <th><?php echo lang('Seller'); ?></th>
                             <th><?php echo lang('Land_Quantity'); ?></th>
-                            <th><?php echo lang('Registration_Date'); ?></th>
-                            <th><?php echo lang('Location'); ?></th>
-                            <th><?php echo lang('Rack'); ?></th>
+                            <th><?php echo lang('Deed_Date'); ?></th>
+                            <th><?php echo lang('Bank'); ?></th>
+                            <th><?php echo lang('Branch'); ?></th>
                             <th></th>
                         </tr>
                         </thead>

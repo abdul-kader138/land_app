@@ -102,7 +102,7 @@ class Document extends MY_Controller
         $this->data['error'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('error');
         $this->load->library('datatables');
         $this->datatables
-            ->select($this->db->dbprefix('documents') . ".id as id, " . $this->db->dbprefix('documents') . ".name as nam," . $this->db->dbprefix('documents') . ".reference_no as ref,". $this->db->dbprefix('documents') . ".mujja as mujja," . $this->db->dbprefix('districts') . ".district as d_name," . $this->db->dbprefix('districts') .".division as division,". $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('documents') . ".seller_name) as seller_names," . $this->db->dbprefix('documents') . ".land_quantity as land_quantity," . $this->db->dbprefix('documents') . ".registration_date as registration_date,". $this->db->dbprefix('documents') . ".location as location," . $this->db->dbprefix('documents') . ".rack_no as rack")
+            ->select($this->db->dbprefix('documents') . ".id as id, " . $this->db->dbprefix('documents') . ".name as nam," . $this->db->dbprefix('documents') . ".reference_no as ref,". $this->db->dbprefix('documents') . ".mujja as mujja," . $this->db->dbprefix('districts') . ".district as d_name," . $this->db->dbprefix('documents') .".deed_no,". $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('documents') . ".seller_name) as seller_names," . $this->db->dbprefix('documents') . ".land_quantity as land_quantity," . $this->db->dbprefix('documents') . ".deed_date as registration_date,". $this->db->dbprefix('documents') . ".bank_name," . $this->db->dbprefix('documents') . ".branch_name")
             ->from("documents")
             ->join('company', 'documents.company_id=company.id', 'left')
             ->join('districts', 'documents.district_id=districts.id', 'left')
@@ -153,6 +153,9 @@ class Document extends MY_Controller
         $this->form_validation->set_rules('mouza_value', lang("mouza_value"),'trim|numeric');
         $this->form_validation->set_rules('present_value', lang("present_value"),'trim|numeric');
         $this->form_validation->set_rules('bank_info', lang("bank_info"),'trim');
+        $this->form_validation->set_rules('bank_name', lang("bank_name"),'trim');
+        $this->form_validation->set_rules('branch_name', lang("branch_name"),'trim');
+        $this->form_validation->set_rules('khash_land_quantity', lang("khash_land_quantity"),'trim||numeric');
         $this->form_validation->set_rules('khajna_date', lang("khajna_date"), 'trim');
 
         if ($this->form_validation->run() == true) {
@@ -194,7 +197,10 @@ class Document extends MY_Controller
                 'mouza_value' => $this->input->post('mouza_value'),
                 'present_value' => $this->input->post('present_value'),
                 'bank_info' => $this->input->post('bank_info'),
-                'khajna_date' => $this->input->post('khajna_date')
+                'khajna_date' => $this->input->post('khajna_date'),
+                'bank_name' => $this->input->post('bank_name'),
+                'branch_name' => $this->input->post('branch_name'),
+                'khash_land_quantity' => $this->input->post('khash_land_quantity')
             );
 
             if ($_FILES['document']['size'] > 0) {
@@ -313,6 +319,9 @@ class Document extends MY_Controller
         $this->form_validation->set_rules('mouza_value', lang("mouza_value"),'trim|numeric');
         $this->form_validation->set_rules('present_value', lang("present_value"),'trim|numeric');
         $this->form_validation->set_rules('bank_info', lang("bank_info"),'trim');
+        $this->form_validation->set_rules('bank_name', lang("bank_name"),'trim');
+        $this->form_validation->set_rules('branch_name', lang("branch_name"),'trim');
+        $this->form_validation->set_rules('khash_land_quantity', lang("khash_land_quantity"),'trim|numeric');
         $this->form_validation->set_rules('khajna_date', lang("khajna_date"), 'trim');
 
         if ($this->form_validation->run() == true) {
@@ -350,7 +359,10 @@ class Document extends MY_Controller
                 'mouza_value' => $this->input->post('mouza_value'),
                 'present_value' => $this->input->post('present_value'),
                 'bank_info' => $this->input->post('bank_info'),
-                'khajna_date' => $this->input->post('khajna_date')
+                'khajna_date' => $this->input->post('khajna_date'),
+                'bank_name' => $this->input->post('bank_name'),
+                'branch_name' => $this->input->post('branch_name'),
+                'khash_land_quantity' => $this->input->post('khash_land_quantity')
 
 
             );

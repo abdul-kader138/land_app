@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("Company/Title", "Company/Title")." <b> *</b>"; ?>
+                                <?= lang("Company/Title", "Company/Title") . " <b> *</b>"; ?>
                                 <?php
                                 $bl[""] = "";
                                 foreach ($companies as $company) {
@@ -48,7 +48,7 @@
                         <div class="clearfix"></div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("document_status", "document_status") ." <b> *</b>";  ?>
+                                <?= lang("document_status", "document_status") . " <b> *</b>"; ?>
                                 <?php $sst = array('new' => lang('New'), 'updated' => lang('Updated'), 'pending' => lang('Pending'));
                                 echo form_dropdown('status_id', $sst, '', 'class="form-control input-tip" required="required" id="status_id"'); ?>
 
@@ -58,7 +58,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("doc_type", "doc_type")." <b> *</b>" ; ?>
+                                <?= lang("doc_type", "doc_type") . " <b> *</b>"; ?>
                                 <?php
                                 $wh[''] = '';
                                 foreach ($doctypes as $doctype) {
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <?= lang("District", "District")." <b> *</b>"; ?>
+                                <?= lang("District", "District") . " <b> *</b>"; ?>
                                 <?php
                                 $bl[""] = "";
                                 foreach ($districts as $district) {
@@ -89,13 +89,13 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Seller_Name", "Seller_Name") ." <b> *</b>"; ?>
+                                <?= lang("Seller_Name", "Seller_Name") . " <b> *</b>"; ?>
                                 <?php echo form_input('seller_name', (isset($_POST['seller_name']) ? $_POST['seller_name'] : ""), 'class="form-control input-tip" id="seller_name" required="required"'); ?>
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Land_Quantity_/Decimal", "Land_Quantity_/Decimal")." <b> *</b>";  ?>
+                                <?= lang("Land_Quantity_/Decimal", "Land_Quantity_/Decimal") . " <b> *</b>"; ?>
                                 <?php echo form_input('land_quantity', (isset($_POST['land_quantity']) ? $_POST['land_quantity'] : ""), 'class="form-control input-tip" id="land_quantity" required="required"'); ?>
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                         <div class="clearfix"></div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Registration_Office", "Registration_Office") ." <b> *</b>"; ?>
+                                <?= lang("Registration_Office", "Registration_Office") . " <b> *</b>"; ?>
                                 <?php echo form_input('registration_office', (isset($_POST['registration_office']) ? $_POST['registration_office'] : ""), 'class="form-control input-tip" id="registration_office" required="required"'); ?>
                             </div>
                         </div>
@@ -186,8 +186,6 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
-
-
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <?= lang("Dag_No", "Dag_No"); ?>
@@ -232,17 +230,24 @@
                             </div>
                         </div>
                         <div class="clearfix"></div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <?= lang("Khash_Land_Quantity", "Khash_Land_Quantity"); ?>
+                                <?php echo form_input('khash_land_quantity', (isset($_POST['khash_land_quantity']) ? $_POST['khash_land_quantity'] : ""), 'class="form-control input-tip" id="khash_land_quantity" '); ?>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
                         <hr class="line">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Rack_No", "Rack_No")." <b> *</b>"; ?>
+                                <?= lang("Rack_No", "Rack_No") . " <b> *</b>"; ?>
                                 <?php echo form_input('rack_no', (isset($_POST['rack_no']) ? $_POST['rack_no'] : ""), 'class="form-control input-tip" id="rack_no" required="required"'); ?>
                             </div>
                         </div>
 
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <?= lang("Location", "Location")." <b> *</b>"; ?>
+                                <?= lang("Location", "Location") . " <b> *</b>"; ?>
                                 <?php echo form_input('location', (isset($_POST['location']) ? $_POST['location'] : ""), 'class="form-control input-tip" id="location" required="required"'); ?>
                             </div>
                         </div>
@@ -254,20 +259,47 @@
                                        data-show-preview="false" class="form-control file">
                             </div>
                         </div>
-                        <div class="clearfix"></div>
 
+                        <div class="clearfix"></div>
+                        <hr class="line">
                         <div class="row" id="bt">
                             <div class="col-md-12">
+                                <div class="combo" style="margin-left: 13px;margin-right: 13px;">
+
+                                    <div class="control-group table-group">
+                                        <label class="table-label"
+                                               for="combo"><?= lang("Mortgage Information"); ?></label>
+                                        <div class="controls table-controls">
+                                            <table id="prTable"
+                                                   class="table items table-striped table-bordered table-condensed table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th class="col-md-6 col-sm-6 col-xs-6"><?= lang('Bank_Name'); ?></th>
+                                                    <th class="col-md-6 col-sm-6 col-xs-6"><?= lang("Branch"); ?></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <th> <?php echo form_input('bank_name', (isset($_POST['bank_name']) ? $_POST['bank_name'] : ""), 'class="form-control input-tip" id="bank_name"'); ?>
+                                                    </th>
+                                                    <th><?php echo form_input('branch_name', (isset($_POST['branch_name']) ? $_POST['branch_name'] : ""), 'class="form-control input-tip" id="branch_name"'); ?></th>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <?= lang("Bank_Info", "Bank_Info"); ?>
+                                        <?= lang("Remarks", "Remarks"); ?>
                                         <?php echo form_textarea('bank_info', (isset($_POST['bank_info']) ? $_POST['bank_info'] : ""), 'class="form-control" id="bank_info" style="margin-top: 10px; height: 100px;"'); ?>
                                     </div>
                                 </div>
 
                             </div>
-
                         </div>
+                        <hr class="line">
                         <div class="clearfix"></div>
 
                         <div class="row" id="bt">
