@@ -947,7 +947,7 @@ class Document extends MY_Controller
         return true;
     }
 
-    function list_baina()
+    public function list_baina()
     {
         if (!$this->Owner && !$this->Admin) {
             $get_permission = $this->permission_details[0];
@@ -994,7 +994,7 @@ class Document extends MY_Controller
         $this->load->library('datatables');
         $this->datatables
             ->select($this->db->dbprefix('baina') . ".id as id, " . $this->db->dbprefix('baina') . ".name as nam," . $this->db->dbprefix('baina') . ".reference_no as ref,". $this->db->dbprefix('baina') . ".mujja as mujja," . $this->db->dbprefix('districts') . ".district as d_name,"
-                . $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('baina') . ".seller_name) as seller_names," . $this->db->dbprefix('baina') . ".land_quantity as land_quantity," . $this->db->dbprefix('baina') . ".price as price,". $this->db->dbprefix('baina') . ".total_amount as total_amount," . $this->db->dbprefix('baina') .
+                . $this->db->dbprefix('company') . ".name as c_name,upper(" . $this->db->dbprefix('baina') . ".seller_name) as seller_names," . $this->db->dbprefix('baina') . ".land_quantity as land_quantity,". $this->db->dbprefix('baina') . ".total_amount as total_amount," . $this->db->dbprefix('baina') .
                 ".advance_amount as advance_amount,". $this->db->dbprefix('baina') . ".dues as dues,". $this->db->dbprefix('baina') . ".expire_date as expire_date")
             ->from("baina")
             ->join('company', 'baina.company_id=company.id', 'left')

@@ -317,10 +317,10 @@ if ($Owner || $Admin) {
                         class="text"> <?= lang('add_document'); ?></span>
                 </a>
             </li>
-            <li id="document_index">
+            <li id="document_list_baina">
                 <a class="submenu" href="<?= site_url('document/list_baina'); ?>">
                     <i class="fa fa-list-alt"></i><span
-                            class="text"> <?= lang('list_baina'); ?></span>
+                            class="text"> <?= lang('List_Baina'); ?></span>
                 </a>
             </li>
             <li id="document_add_baina">
@@ -700,7 +700,7 @@ if ($Owner || $Admin) {
                     <li id="document_list_baina">
                         <a class="submenu" href="<?= site_url('document/list_baina'); ?>">
                             <i class="fa fa-list-alt"></i><span
-                                    class="text"> <?= lang('List_Baina'); ?></span>
+                                    class="text"> <?= lang('list_baina'); ?></span>
                         </a>
                     </li>
                 <?php } ?>

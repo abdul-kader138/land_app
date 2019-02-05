@@ -29,19 +29,19 @@
             "fnFooterCallback": function (nRow, aaData, iStart, iEnd, aiDisplay) {
                 var gtotal = 0, paid = 0, balance = 0;
                 for (var i = 0; i < aaData.length; i++) {
-                    gtotal += parseFloat(aaData[aiDisplay[i]][9]);
-                    paid += parseFloat(aaData[aiDisplay[i]][10]);
-                    balance += parseFloat(aaData[aiDisplay[i]][11]);
+                    gtotal += parseFloat(aaData[aiDisplay[i]][8]);
+                    paid += parseFloat(aaData[aiDisplay[i]][9]);
+                    balance += parseFloat(aaData[aiDisplay[i]][10]);
                 }
                 var nCells = nRow.getElementsByTagName('th');
-                nCells[9].innerHTML = currencyFormat(parseFloat(gtotal));
-                nCells[10].innerHTML = currencyFormat(parseFloat(paid));
-                nCells[11].innerHTML = currencyFormat(parseFloat(balance));
+                nCells[8].innerHTML = currencyFormat(parseFloat(gtotal));
+                nCells[9].innerHTML = currencyFormat(parseFloat(paid));
+                nCells[10].innerHTML = currencyFormat(parseFloat(balance));
             },
             "aoColumns": [{
                 "bSortable": false,
                 "mRender": checkbox
-            }, null, null, null, null,null, null,null,null,null,null,null,null,null]
+            }, null, null, null, null,null, null,null,null,null,null,null,null]
         }).fnSetFilteringDelay().dtFilter([
             {column_number: 1, filter_default_label: "[<?=lang('name');?>]", filter_type: "text", data: []},
             {column_number: 2, filter_default_label: "[<?=lang('reference_no');?>]", filter_type: "text", data: []},
@@ -50,11 +50,10 @@
             {column_number: 5, filter_default_label: "[<?=lang('Owner');?>]", filter_type: "text", data: []},
             {column_number: 6, filter_default_label: "[<?=lang('Seller');?>]", filter_type: "text", data: []},
             {column_number: 7, filter_default_label: "[<?=lang('Land_Quantity');?>]", filter_type: "text", data: []},
-            {column_number: 8, filter_default_label: "[<?=lang('Price');?>]", filter_type: "text", data: []},
-            {column_number: 9, filter_default_label: "[<?=lang('Total_amount');?>]", filter_type: "text", data: []},
-            {column_number: 10, filter_default_label: "[<?=lang('Advance_Amount');?>]", filter_type: "text", data: []},
-            {column_number: 11, filter_default_label: "[<?=lang('Dues');?>]", filter_type: "text", data: []},
-            {column_number: 12, filter_default_label: "[<?=lang('Expire_Date');?>]", filter_type: "text", data: []},
+            {column_number: 8, filter_default_label: "[<?=lang('Total_amount');?>]", filter_type: "text", data: []},
+            {column_number: 9, filter_default_label: "[<?=lang('Advance_Amount');?>]", filter_type: "text", data: []},
+            {column_number: 10, filter_default_label: "[<?=lang('Dues');?>]", filter_type: "text", data: []},
+            {column_number: 11, filter_default_label: "[<?=lang('Expire_Date');?>]", filter_type: "text", data: []},
         ], "footer");
     });
 </script>
@@ -104,7 +103,6 @@
                             <th><?php echo lang('Owner'); ?></th>
                             <th><?php echo lang('Seller'); ?></th>
                             <th><?php echo lang('Land_Quantity'); ?></th>
-                            <th><?php echo lang('Price'); ?></th>
                             <th><?php echo lang('Total_Amount'); ?></th>
                             <th><?php echo lang('Advance_Amount'); ?></th>
                             <th><?php echo lang('Dues'); ?></th>
@@ -114,7 +112,7 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td colspan="14" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
+                            <td colspan="13" class="dataTables_empty"><?= lang('loading_data_from_server') ?></td>
                         </tr>
                         </tbody>
                         <tfoot class="dtFilter">
@@ -128,7 +126,6 @@
                             <th ></th>
                             <th></th>
                             <th></th>
-                            <th ></th>
                             <th ></th>
                             <th ></th>
                             <th ></th>
