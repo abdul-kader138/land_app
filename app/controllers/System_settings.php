@@ -861,6 +861,8 @@ class system_settings extends MY_Controller
                 'document-add_baina' => $this->input->post('document-add_baina'),
                 'document-edit_baina' => $this->input->post('document-edit_baina'),
                 'document-delete_baina' => $this->input->post('document-delete_baina'),
+                'backups_index' => $this->input->post('backups_index'),
+                'bulk_actions' => $this->input->post('bulk_actions'),
 
 
             );
